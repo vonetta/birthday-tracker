@@ -8,9 +8,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dotenv": "^5.0.1",
+    "fullcalendar-reactwrapper": "^1.0.7",
     "materialize-css": "^0.100.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-notifications": "^1.4.3",
     "react-router-dom": "^4.2.2"
   },
   "scripts": {

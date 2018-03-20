@@ -10,37 +10,11 @@ const configMongoDB = require('./config/mongodb.config')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const auth = require('./filters/auth')
-const cookieSeession = require('cookie-session')
+const cookieSession = require('cookie-session')
 
 auth(passport)
 
 app.use(passport.initialize());
-
-app.get('/', (req, res) => {
-    res.json({
-        status: 'session cookie not set'
-    })
-})
-
-app.get('/auth/google', passport.authenticate('google', {
-    scope: ['https://www.gooleapis.com/auth/userinfo.profile']
-}))
-
-app.get('/auth/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: '/'
-    }),
-    (req, res) => {
-        req.session.token = req.user.token
-        res.redirect('/')
-    })
-//cors
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-    next()
-})
 
 //cookie-session
 app.use(cookieSession({
@@ -48,18 +22,16 @@ app.use(cookieSession({
     keys: ['123']
 }))
 
-
 // enable cookie-parser
 app.use(cookieParser())
 
-
-
-
-// initialize dotenv
-dotenv.config()
-
-// set our port
-const port = process.env.PORT || 8080
+//cors
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+    next()
+})
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
@@ -69,6 +41,50 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
     extended: true
 }))
+
+app.get('/', (req, res) => {
+    if(req.session.token){
+        res.cookie('token', req.session.token)
+        res.json({
+            status: 'session cookie set'
+        })
+    }
+    else{
+        res.cookie('token', '')
+        res.json({
+            status: 'session cookie not set'
+        })
+    }
+})
+
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/userinfo.profile']
+}))
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        failureRedirect: '/'
+    }),
+    (req, res) => {
+        console.log(req.user.profile.name.givenName)
+      req.session.token = req.user.token
+        res.redirect(`http://localhost:3001/login`)
+    })
+
+    app.get('/logout', (req, res)=>{
+        rew.logout()
+        req.session = null
+        res.redirect('/')
+    })
+
+
+// initialize dotenv
+dotenv.config()
+
+// set our port
+const port = process.env.PORT || 8080
+
+
 
 // register routes
 app.use(mainRouter)
