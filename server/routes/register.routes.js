@@ -9,5 +9,6 @@ module.exports = apiPrefix =>{
     router.get('/confirm-email/:id([0-9a-fA-F]{24})', registerController.readById)
     router.post('/', registerController.create)
     router.post("/confirm-email/:id([0-9a-fA-F]{24})", registerController.confirmEmail)
+    router.post("/login", registerController.login)
     return router
 }

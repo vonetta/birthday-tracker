@@ -27,9 +27,10 @@ app.use(cookieParser())
 
 //cors
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Origin", `${process.env.ORIGIN}`)
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+    res.header("Access-Control-Allow-Credentials", "true")
     next()
 })
 
@@ -83,8 +84,6 @@ dotenv.config()
 
 // set our port
 const port = process.env.PORT || 8080
-
-
 
 // register routes
 app.use(mainRouter)

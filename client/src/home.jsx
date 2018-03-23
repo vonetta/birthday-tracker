@@ -6,51 +6,51 @@ class Home extends Component {
         return (
             <div className="row">
                 <div className="container">
-                    <div class="row">
-                        <div class="col s12 m4">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="images/sample-1.jpg" alt=""/>
-                                    <span class="card-title">Card Title</span>
-
-                                    <div class="card-content">
-                                        <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="/">This is a link</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col s12 m4">
-                            <div class="card">
-                                <div class="card-image">
+                    <div className="row">
+                        <div className="col s12 m4">
+                            <div className="card">
+                                <div className="card-image">
                                     <img src="images/sample-1.jpg" alt="" />
-                                    <span class="card-title">Card Title</span>
+                                    <span className="card-title">Card Title</span>
 
-                                    <div class="card-content">
+                                    <div className="card-content">
                                         <p>I am a very simple card. I am good at containing small bits of information.
               I am convenient because I require little markup to use effectively.</p>
                                     </div>
-                                    <div class="card-action">
+                                    <div className="card-action">
                                         <a href="/">This is a link</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col s12 m4">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="images/sample-1.jpg" alt=""/>
-                                    <span class="card-title">Card Title</span>
-                                    <div class="card-content">
+                        <div className="col s12 m4">
+                            <div className="card">
+                                <div className="card-image">
+                                    <img src="images/sample-1.jpg" alt="" />
+                                    <span className="card-title">Card Title</span>
+
+                                    <div className="card-content">
                                         <p>I am a very simple card. I am good at containing small bits of information.
               I am convenient because I require little markup to use effectively.</p>
                                     </div>
-                                    <div class="card-action">
+                                    <div className="card-action">
+                                        <a href="/">This is a link</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col s12 m4">
+                            <div className="card">
+                                <div className="card-image">
+                                    <img src="images/sample-1.jpg" alt="" />
+                                    <span className="card-title">Card Title</span>
+                                    <div className="card-content">
+                                        <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+                                    </div>
+                                    <div className="card-action">
                                         <a href="/">This is a link</a>
                                     </div>
                                 </div>

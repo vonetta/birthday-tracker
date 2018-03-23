@@ -6,24 +6,24 @@ let _apiPrefix
 
 module.exports = apiPrefix => {
     _apiPrefix = apiPrefix
-    return{
+    return {
         read: readAll,
         readById: readById,
         create: create,
-        confirmEmail:confirmEmail
+        confirmEmail: confirmEmail,
+        login: login
 
     }
 }
 
-function readAll(req, res){
+function readAll(req, res) {
     registerService.read()
-    .then(registration=>{
-        console.log("test")
-        res.status(200).json(registration)
-    })
-    .catch(err => {
-        res.status(500).send(new responses.ErrorResponse(err))
-    })
+        .then(registration => {
+            res.status(200).json(registration)
+        })
+        .catch(err => {
+            res.status(500).send(err)
+        })
 }
 
 function readById(req, res) {
@@ -33,33 +33,53 @@ function readById(req, res) {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).send(new responses.ErrorResponse(err))
+            res.status(500).send(err)
         })
 }
 
-function create (req, res){
+function create(req, res) {
     let userId
     registerService.create(req.body)
-    .then(register => {
-        userId = register
-    const toName = `${req.body.firstName} ${req.body.lastName}`
-        return emailService.sendRegistrationConfirmation(req.body.email, userId, toName)
-    })
-    .then(id=> {
-        id=userId
-        res.status(201).location(`${_apiPrefix}/${register}`).json(id)
-    })
-    .catch(err => {
-        res.status(500).send(err)
-    })
+        .then(register => {
+            userId = register
+            const toName = `${req.body.firstName} ${req.body.lastName}`
+            return emailService.sendRegistrationConfirmation(req.body.email, userId, toName)
+        })
+        .then(id => {
+            id = userId
+            res.status(201).location(`${_apiPrefix}/${register}`).json(id)
+        })
+        .catch(err => {
+            res.status(500).send(err)
+        })
 }
 
-function confirmEmail(req,res){
+function confirmEmail(req, res) {
     registerService.updateIsEmailConfirmed(req.params.id)
-    .then(response => {
-        res.status(200).json(response)
-    })
-    .catch(err => {
-        res.status(500).send(err)
-    })
+        .then(response => {
+            res.status(200).json(response)
+        })
+        .catch(err => {
+            res.status(500).send(err)
+        })
+}
+
+function login(req, res) {
+    registerService.login(req.body.email, req.body.password)
+        .then(user => {
+            if (user && user.isEmailConfirmed) {
+                res.cookie('auth', { userId: user._id }, { maxAge: 365 * 24 * 60 * 60 * 1000 })
+                res.status(200).send(user)
+                 
+            }
+            else {
+                res.status(400).send("Login attempt failed")
+                return
+            }
+
+        })
+        .catch(err => {
+            res.status(500).send(err)
+        })
+
 }

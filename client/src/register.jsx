@@ -81,7 +81,7 @@ class Register extends Component {
                     <form className="registerForm m6" ref={ref => ((this.registerFormElement = ref))}>
                         <h5>Register</h5>
                         <div className={"row " + this.validityCheck('firstNameElement')} >
-                            <div className="input-field col m12" >
+                            <div className="input-field col m12">
                                 <label htmlFor="firstName">First Name</label>
                                 <input type="text" id="firstName" ref={ref => ((this.firstNameElement = ref))} name="firstName" onChange={this.handleChange} className="validate" value={this.state.register.firstName} required={true} data-error="wrong" data-success="right" />
                                 {this.state.submitted && this.firstNameElement && this.firstNameElement.validity.valueMissing && (<p>Please enter your first name</p>)}
@@ -114,7 +114,7 @@ class Register extends Component {
                         </div>
 
                     </form>
-                    <pre>{JSON.stringify(this.state, null, 4)}</pre>
+             
                 </div>
             </div>
         )

@@ -19,10 +19,13 @@ export function create(data){
 }
 
 export function confirmEmail(data) {
-    return axios
-        .post(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/users/confirm-email/${data}`, data)
+    return axios.post(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/users/confirm-email/${data}`, data)
         .then(onSuccess)
         .catch(onError)
+}
+
+export function login(data){
+    return axios.post(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/users/login`, data, {withCredentials:true})
 }
 
  function onSuccess(response){

@@ -4,7 +4,6 @@ const mongodb = require('../mongodb')
 const conn = mongodb.connection
 const ObjectId = mongodb.ObjectId
 
-
 function read() {
     return conn.db().collection('users').find({}).toArray()
         .then(users => {
@@ -20,9 +19,8 @@ function read() {
 }
 
 function readById(id) {
-    return conn.db().collection('users').findOne({ _id: id })
+    return conn.db().collection('users').findOne({ _id: new ObjectId(id) })
         .then(user => {
-           console.log(user)
             return user
         })
         .catch(err => {
@@ -52,22 +50,28 @@ function updateIsEmailConfirmed(id, data) {
         }
     }
 
-    if (typeof data.isEmailConfirmed === "boolean") {
-        document.$set.isEmailConfirmed = data.isEmailConfirmed
-    }
-
-    return conn.db().collection('users').updateOne({ _id: id }, emailDoc)
+    return conn.db().collection('users').updateOne({ _id: new ObjectId(id) }, emailDoc)
         .then(response => {
             return response.matchedCount
         })
         .catch(err => {
             Promise.reject(err)
+
         })
+}
+
+function login(email, password) {
+    return conn.db().collection('users').findOne({ email: email, password: password })
+        .then(response => {response._id = response._id.toString()
+        return response
+        })
+        .catch(err => Promise.reject(err))
 }
 
 module.exports = {
     read: read,
     create: create,
     updateIsEmailConfirmed: updateIsEmailConfirmed,
-    readById: readById
+    readById: readById,
+    login: login
 }

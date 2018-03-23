@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import google from './images/google.png'
+import { login } from './services/register.service'
+import {Redirect} from 'react-router'
 
 class Login extends Component {
 
@@ -8,7 +10,9 @@ class Login extends Component {
             email: '',
             password: ''
         },
-        submitted: false
+        submitted: false,
+        redirect:false,
+        userId:''
     }
 
     handleChange = e => {
@@ -31,16 +35,24 @@ class Login extends Component {
 
     submit = () => {
         this.setState({ submitted: true })
-        // if (!this.loginFormElement.checkValidity()) { return }
-        // else {
-        alert("data")
-        // }
+        if (!this.loginFormElement.checkValidity()) { return }
+        else {
+            login(this.state.login)
+                .then(data => {
+                    this.setState({userId: data.data._id})
+                    this.setState({redirect:true})  
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     login = () => {
         window.location.href = `${process.env.REACT_APP_BACKEND_ORIGIN}/auth/google`
     }
     render() {
+        if (this.state.redirect === true) {
+            return <Redirect to={`calendar/${this.state.userId} `}/>
+        }
         return (
             <div>
                 <div className="row">
@@ -64,7 +76,6 @@ class Login extends Component {
                             <a className=" waves-light btn" onClick={this.submit}>Submit</a>
                         </div>
                         <div>
-
                             <hr />
 
                         </div>
@@ -73,7 +84,6 @@ class Login extends Component {
 
                         </div>
                     </form>
-                    <pre>{JSON.stringify(this.state, null, 4)}</pre>
                 </div>
             </div>
         )

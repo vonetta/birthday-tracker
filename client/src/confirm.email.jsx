@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import { readById } from "./services/register.service";
+import { confirmEmail, readById } from "./services/register.service";
+
 class ConfirmEmail extends Component {
     componentDidMount() {
         readById(this.props.match.params.userId)
-            .then(data => console.log(data))
-        // confirmEmail()
-        //     .then(data => {
-        //         console.log(data)
-        //     })
-
+            .then(data => confirmEmail(this.props.match.params.userId, data))
+            .then(data => window.location.href = "/login")
+            .catch(err => console.log(err))
     }
+
     render() {
         return (
-            <div><h1>Confirm Email</h1></div>
+            <div class="loader">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         )
     }
 }
