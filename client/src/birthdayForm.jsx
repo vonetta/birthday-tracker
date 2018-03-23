@@ -8,7 +8,7 @@ class BirthdayForm extends Component {
 
     state = {
         form: {
-            selectedDate: this.props.eventData,
+            date: this.props.eventData,
             name: "",
             email: "",
             userId: this.props.userId
@@ -38,12 +38,13 @@ class BirthdayForm extends Component {
         })
     }
 
-    submit = () => {
-        
+    submit = () => {  
         create(this.state.form)
-            .then(data => {this.setState({
+            .then(data => {            
+                this.props.callBack(this.state.form)
+                this.setState({
                 form: {
-                    selectedDate: this.props.eventData,
+                    date: this.props.eventData,
                     name: "",
                     email: ""
                 }
@@ -51,6 +52,7 @@ class BirthdayForm extends Component {
             if (this.props.modal === true) {
                 $('#test').modal('close')
             }
+            
         })
             .catch(err => console.log(err))
     }

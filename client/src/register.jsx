@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-
 import { create } from './services/register.service'
-
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 class Register extends Component {
     state = {

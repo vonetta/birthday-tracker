@@ -11,7 +11,8 @@ module.exports = apiPrefix => {
         readById: readById,
         create: create,
         confirmEmail: confirmEmail,
-        login: login
+        login: login,
+        logout: logout
 
     }
 }
@@ -68,18 +69,20 @@ function login(req, res) {
     registerService.login(req.body.email, req.body.password)
         .then(user => {
             if (user && user.isEmailConfirmed) {
-                res.cookie('auth', { userId: user._id }, { maxAge: 365 * 24 * 60 * 60 * 1000 })
+                res.cookie('auth', { userId: user._id, firstName: user.firstName, lastName: user.lastName }, { maxAge: 365 * 24 * 60 * 60 * 1000 })
                 res.status(200).send(user)
-                 
             }
             else {
                 res.status(400).send("Login attempt failed")
                 return
             }
-
         })
         .catch(err => {
             res.status(500).send(err)
         })
+}
 
+function logout(req, res) {
+    res.clearCookie('auth')
+    res.status(200).send("You Logged Out")
 }

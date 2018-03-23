@@ -68,6 +68,7 @@ function login(email, password) {
         .catch(err => Promise.reject(err))
 }
 
+
 module.exports = {
     read: read,
     create: create,
