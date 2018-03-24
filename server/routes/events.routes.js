@@ -5,7 +5,7 @@ const eventsApiPrefix = '/api/events'
 module.exports = apiPrefix =>{
     const eventsController = eventsControllerFactory(apiPrefix)
 
-
+    router.get('/', eventsController.read)
     router.get('/:id([0-9a-fA-f]{24})', eventsController.readById)
     router.post('/', eventsController.create)
     return router

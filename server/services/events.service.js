@@ -4,6 +4,30 @@ const mongodb = require('../mongodb')
 const conn = mongodb.connection
 const ObjectId = mongodb.ObjectId
 
+
+function read() {
+    let currentDate = new Date().toLocaleDateString('ja', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    }).replace(/\//g, '-')
+    console.log(currentDate)
+
+    return conn.db().collection('events').find({ $query: { date: currentDate } }).toArray()
+        .then(events => {
+            for (let i = 0; i < events.length; i++) {
+                let event = events[i]
+
+                event._id = event._id.toString()
+                event.userId = event.userId.toString()
+            }
+            return events
+        })
+        .catch(err => {
+            return Promise.reject(err)
+        })
+}
+
 function readById(id) {
     return conn.db().collection('events').find({ userId: new ObjectId(id) }).toArray()
         .then(events => {
@@ -31,5 +55,6 @@ function create(model) {
 
 module.exports = {
     create: create,
-    readById: readById
+    readById: readById,
+    read: read
 }

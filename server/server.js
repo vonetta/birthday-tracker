@@ -11,6 +11,9 @@ const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const auth = require('./filters/auth')
 const cookieSession = require('cookie-session')
+const schedule = require('node-schedule')
+const eventService = require('./services/events.service')
+const emailService = require('./services/emails.service')
 
 auth(passport)
 
@@ -44,13 +47,13 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.get('/', (req, res) => {
-    if(req.session.token){
+    if (req.session.token) {
         res.cookie('token', req.session.token)
         res.json({
             status: 'session cookie set'
         })
     }
-    else{
+    else {
         res.cookie('token', '')
         res.json({
             status: 'session cookie not set'
@@ -68,16 +71,29 @@ app.get('/auth/google/callback',
     }),
     (req, res) => {
         console.log(req.user.profile.name.givenName)
-      req.session.token = req.user.token
+        req.session.token = req.user.token
         res.redirect(`http://localhost:3001/login`)
     })
 
-    app.get('/logout', (req, res)=>{
-        rew.logout()
-        req.session = null
-        res.redirect('/')
-    })
+app.get('/logout', (req, res) => {
+    rew.logout()
+    req.session = null
+    res.redirect('/')
+})
 
+// var rule = new schedule.RecurrenceRule();
+// rule.seconds = 1;
+
+// var j = schedule.scheduleJob(rule, function () {
+//     console.log('The answer to life, the universe, and everything!');
+//     eventService.read()
+//         .then(data => {
+//             if (!data) { return }
+//             for (let i = 0; i < data.length; i++) {
+//                 emailService.sendBirthdayEmail(data[i].email, data[i].userId, data[i].name)
+//             }
+//         })
+// });
 
 // initialize dotenv
 dotenv.config()

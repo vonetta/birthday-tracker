@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import google from './images/google.png'
 import { login } from './services/register.service'
-import {Redirect} from 'react-router'
+import { Redirect } from 'react-router'
 
 class Login extends Component {
-
     state = {
         login: {
             email: '',
             password: ''
         },
         submitted: false,
-        redirect:false,
-        userId:''
+        redirect: false,
+        userId: ''
     }
 
     handleChange = e => {
@@ -30,7 +29,6 @@ class Login extends Component {
 
     validityCheck = propertyName => {
         return (this.state.submitted && this[propertyName] && !this[propertyName].validity.valid ? 'validate' : '')
-
     }
 
     submit = () => {
@@ -39,8 +37,8 @@ class Login extends Component {
         else {
             login(this.state.login)
                 .then(data => {
-                    this.setState({userId: data.data._id})
-                    this.setState({redirect:true})  
+                    this.setState({ userId: data.data._id })
+                    this.setState({ redirect: true })
                 })
                 .catch(err => console.log(err))
         }
@@ -51,8 +49,9 @@ class Login extends Component {
     }
     render() {
         if (this.state.redirect === true) {
-            return <Redirect to={`calendar/${this.state.userId} `}/>
+            return <Redirect to={`calendar/${this.state.userId} `} />
         }
+
         return (
             <div>
                 <div className="row">
@@ -81,7 +80,6 @@ class Login extends Component {
                         </div>
                         <div className="row">
                             <a>  <img src={google} alt="" onClick={this.login} /></a>
-
                         </div>
                     </form>
                 </div>
@@ -89,6 +87,5 @@ class Login extends Component {
         )
     }
 }
-
 
 export default Login

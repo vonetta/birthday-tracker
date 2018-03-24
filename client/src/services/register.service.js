@@ -26,6 +26,14 @@ export function confirmEmail(data) {
 
 export function login(data){
     return axios.post(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/users/login`, data, {withCredentials:true})
+    .then(onSuccess)
+    .catch(onError)
+}
+
+export function logout(data){
+    return axios.post(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/users/logout`, data, {withCredentials:true})
+    .then(onSuccess)
+    .catch(onError)
 }
 
  function onSuccess(response){

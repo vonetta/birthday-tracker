@@ -13,13 +13,9 @@ class BirthdayForm extends Component {
             email: "",
             userId: this.props.userId
         }
-     
+
     }
-
-  
-
     componentDidUpdate(nextProps) {
-        // this.setState({userId: this.props.userId})
         if (nextProps.modal === true) {
             $('#test').modal('open')
         }
@@ -38,22 +34,22 @@ class BirthdayForm extends Component {
         })
     }
 
-    submit = () => {  
+    submit = () => {
         create(this.state.form)
-            .then(data => {            
+            .then(data => {
                 this.props.callBack(this.state.form)
                 this.setState({
-                form: {
-                    date: this.props.eventData,
-                    name: "",
-                    email: ""
+                    form: {
+                        date: this.props.eventData,
+                        name: "",
+                        email: ""
+                    }
+                })
+                if (this.props.modal === true) {
+                    $('#test').modal('close')
                 }
+
             })
-            if (this.props.modal === true) {
-                $('#test').modal('close')
-            }
-            
-        })
             .catch(err => console.log(err))
     }
 
@@ -83,7 +79,7 @@ class BirthdayForm extends Component {
                             <div className="row">
                                 <div className="input-field col m12">
                                     <label htmlFor="">Full Name</label>
-                                    <input type="text" name="name" id="name" ref={ref => (this.nameElement =  ref)} onChange={this.handleChange} value={this.state.form.name} />
+                                    <input type="text" name="name" id="name" ref={ref => (this.nameElement = ref)} onChange={this.handleChange} value={this.state.form.name} />
                                 </div>
                             </div>
                             <div className="row">
@@ -99,47 +95,6 @@ class BirthdayForm extends Component {
                     </Modal>
                     <pre>{JSON.stringify(this.state.form, null, 4)}</pre>
                 </div>
-
-                {/* <div className="row">
-                    <div className="lightbox">
-                        <form className="eventForm">
-                            <h3>New Birthday Event</h3>
-                            <div className="row">
-                                <div className="input-field col m3">
-
-                                    <div className="input-group date">
-                                        <DateTime
-                                            value={this.state.selectedDate || this.props.eventData}
-                                            input={true}
-                                            inputProps={{ readOnly: true, ref: (input) => { this.input = input; } }} closeOnSelect={true}
-                                            name="dateTime"
-                                            onChange={this.dateChange}
-                                            timeFormat={false}
-                                        />
-                                        <span className="input-group-addon" onClick={() => { this.input.focus() }}>
-                                            <i className="material-icons right">date_range</i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="input-field col m12">
-                                    <label htmlFor="">Name</label>
-                                    <input type="text" name="name" id="name" ref={ref => (this.nameElement = ref)} />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="input-field col m12">
-                                    <label htmlFor="">Email</label>
-                                    <input type="email" name="email" id="email" ref={ref => (this.emailElement = ref)} />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <a className="waves-light btn" onClick={this.submit}>Submit</a>
-                            </div>
-                        </form>
-                    </div>
-                </div> */}
             </div>
         )
     }

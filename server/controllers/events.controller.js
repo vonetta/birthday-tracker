@@ -8,9 +8,19 @@ module.exports = apiPrefix => {
     _apiPrefix = apiPrefix
     return {
         create: create,
-        readById:readById
+        readById:readById,
+        read: read
     }
 }
+
+
+function read(req, res){
+    eventsService.read()
+    .then(events => {
+        res.json(events)
+    })
+}
+
 
 function readById(req, res){
     eventsService.readById(req.params.id)

@@ -8,7 +8,8 @@ const sgMail = require("@sendgrid/mail")
 
 module.exports = {
   send: _send,
-  sendRegistrationConfirmation: sendRegistrationConfirmation
+  sendRegistrationConfirmation: sendRegistrationConfirmation,
+  sendBirthdayEmail: sendBirthdayEmail
 }
 function _send(toAddress, toName, subject, body) {
 
@@ -36,13 +37,23 @@ function _send(toAddress, toName, subject, body) {
       return Promise.reject(xhr)
     })
 
-  }
-    function sendRegistrationConfirmation(toAddress, userId, toName) {
-        let subject = "Thank you for Registering to Birthday Tracker"
-        let body = `<p>Dear ${toName},</p>
+}
+function sendRegistrationConfirmation(toAddress, userId, toName) {
+  let subject = "Thank you for Registering to Birthday Tracker"
+  let body = `<p>Dear ${toName},</p>
         <p>Thank you for registering to Birthday Tracker.</p>
         
             <a href="${process.env.ORIGIN}/confirm-email/${userId}" style="background-color:#0000ff;border-radius:3px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:16px;line-height:44px;text-align:center;text-decoration:none;width:150px;">Confirm Email</a>`
-      
-        return _send(toAddress, userId, subject, body)
-      }
+
+  return _send(toAddress, userId, subject, body)
+}
+
+function sendBirthdayEmail(toAddress, userId, toName) {
+  let subject = "Happy Birthday"
+  let body = `<p> Hey ${toName},</p>
+        <p>Today is your birthday. The one day you are allowed to celebrate yourself. Hope you have an amazing day today, full of tons of laughter and fun. Happy Birthday 🎂 🎉 🎊 🎂 🎉 🎊 🎂 🎉 🎊 </p>
+
+        <p>Vonetta</p>`
+
+  return _send(toAddress, userId, subject, body)
+}
