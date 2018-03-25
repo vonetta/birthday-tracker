@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import google from './images/google.png'
 import { login } from './services/register.service'
-import { Redirect } from 'react-router'
+import { Redirect, Link } from 'react-router-dom'
 
 class Login extends Component {
     state = {
@@ -51,12 +51,11 @@ class Login extends Component {
         if (this.state.redirect === true) {
             return <Redirect to={`calendar/${this.state.userId} `} />
         }
-
         return (
-            <div>
+            <div className="container">
                 <div className="row">
-                    <form className="loginForm m6" ref={ref => ((this.loginFormElement = ref))}>
-                        <h5>Login</h5>
+                    <form className="loginForm m4" ref={ref => ((this.loginFormElement = ref))}>
+                        <h4 className="center">Login</h4>
                         <div className={"row " + this.validityCheck('emailElement')}>
                             <div className="input-field col m12">
                                 <input type="email" id="email" name="email" ref={ref => ((this.emailElement = ref))} onChange={this.handleChange} className="validate" value={this.state.login.email} data-error="invalid email" data-success="right" />
@@ -72,16 +71,19 @@ class Login extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <a className=" waves-light btn" onClick={this.submit}>Submit</a>
+                            <a className=" waves-light btn right" onClick={this.submit}>Login</a>
                         </div>
-                        <div>
-                            <hr />
 
-                        </div>
+                     <hr className="hr"/>
                         <div className="row">
-                            <a>  <img src={google} alt="" onClick={this.login} /></a>
+                            <a>  <img src={google} alt="" onClick={this.login} className="google"/></a>
+                        </div>
+                        <hr className="hr"/>
+                        <div>
+                            <Link to={`/register`} className="right">Need to register. Sign Up Here?</Link>
                         </div>
                     </form>
+              
                 </div>
             </div>
         )

@@ -8,7 +8,6 @@ class ConfirmEmail extends Component {
             .then(data => window.location.href = "/login")
             .catch(err => console.log(err))
     }
-
     render() {
         return (
             <div class="loader">

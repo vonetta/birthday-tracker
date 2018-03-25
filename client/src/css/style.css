@@ -1,151 +1,180 @@
-.registerForm,.loginForm,.eventForm{
-    width: 40%;
-    margin: 5% auto;
-    box-shadow: 2px 2px 10px gray;
-    padding: 2%;
-    background-color:whitesmoke;
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-.eventForm{
-    border-radius: 5%;
-    position: fixed;
-    top: 10%;
-    left: 30%; 
+/* footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+} */
+
+footer {
+  margin-top: 5%;
+}
+.container {
+  flex: 1 0 auto;
+}
+.hr {
+  border-top: 0.5px dotted #8c8b8b;
 }
 
-.row{
-    margin-bottom: 0px;
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -99999;
 }
 
-img{
-    width: 10%;
+.registerForm,
+.loginForm,
+.eventForm {
+  width: 50%;
+  margin: 5% auto;
+  box-shadow: 2px 2px 10px gray;
+  padding: 5%;
+  background-color: whitesmoke;
 }
 
-.fc{
-    margin-top: 2%;
-    width: 80%; 
-    margin-left: 11%;
+.eventForm {
+  border-radius: 5%;
+  position: fixed;
+  top: 10%;
+  left: 30%;
 }
-ul{
-    display: flex
+
+.row {
+  margin-bottom: 0px;
+}
+
+img {
+  width: 20%;
+}
+
+.google {
+  width: 50%;
+  margin: 2% 25%;
+}
+.fc-row table {
+  background-color: #fff;
+}
+.fc {
+  margin-top: 2%;
+  width: 80%;
+  margin-left: 11%;
+}
+ul {
+  display: flex;
 }
 
 ul li a {
-    flex-direction: column;
+  flex-direction: column;
 }
 
-ul Link{
-    justify-content: flex-end;
+ul link {
+  justify-content: flex-end;
 }
 
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-main {
-    flex: 1 0 auto;
-} 
-
-.pic img{
-    margin-top: 3%;
-    border-radius: 50%;
-    width: 15%;
+.pic img {
+  margin-top: 3%;
+  border-radius: 50%;
+  width: 30%;
 }
 
 .dropdown-content {
-    margin-top: 3.4%;
-    flex-direction: column;
+  margin-top: 3.4%;
+  flex-direction: column;
 }
-a.dropdown-button{
-    width: 300px;
+a.dropdown-button {
+  width: 200px;
 }
-  .loader {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    margin: auto;
-    width: 175px;
-    height: 100px;
-  }
+.loader {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  width: 175px;
+  height: 100px;
+}
 
-  .loader span {
-    display: block;
+.loader span {
+  display: block;
+  background: #ccc;
+  width: 7px;
+  height: 10%;
+  border-radius: 14px;
+  margin-right: 5px;
+  float: left;
+  margin-top: 25%;
+}
+.loader span:last-child {
+  margin-right: 0px;
+}
+.loader span:nth-child(1) {
+  animation: load 2.5s 1.4s infinite linear;
+}
+.loader span:nth-child(2) {
+  animation: load 2.5s 1.2s infinite linear;
+}
+.loader span:nth-child(3) {
+  animation: load 2.5s 1s infinite linear;
+}
+.loader span:nth-child(4) {
+  animation: load 2.5s 0.8s infinite linear;
+}
+.loader span:nth-child(5) {
+  animation: load 2.5s 0.6s infinite linear;
+}
+.loader span:nth-child(6) {
+  animation: load 2.5s 0.4s infinite linear;
+}
+.loader span:nth-child(7) {
+  animation: load 2.5s 0.2s infinite linear;
+}
+.loader span:nth-child(8) {
+  animation: load 2.5s 0s infinite linear;
+}
+.loader span:nth-child(9) {
+  animation: load 2.5s 0.2s infinite linear;
+}
+.loader span:nth-child(10) {
+  animation: load 2.5s 0.4s infinite linear;
+}
+.loader span:nth-child(11) {
+  animation: load 2.5s 0.6s infinite linear;
+}
+.loader span:nth-child(12) {
+  animation: load 2.5s 0.8s infinite linear;
+}
+.loader span:nth-child(13) {
+  animation: load 2.5s 1s infinite linear;
+}
+.loader span:nth-child(14) {
+  animation: load 2.5s 1.2s infinite linear;
+}
+.loader span:nth-child(15) {
+  animation: load 2.5s 1.4s infinite linear;
+}
+
+@keyframes load {
+  0% {
     background: #ccc;
-    width: 7px;
+    margin-top: 25%;
     height: 10%;
-    border-radius: 14px;
-    margin-right: 5px;
-    float: left;
+  }
+  50% {
+    background: #444;
+    height: 100%;
+    margin-top: 0%;
+  }
+  100% {
+    background: #ccc;
+    height: 10%;
     margin-top: 25%;
   }
-  .loader span:last-child {
-    margin-right: 0px;
-  }
-  .loader span:nth-child(1) {
-    animation: load 2.5s 1.4s infinite linear;
-  }
-  .loader span:nth-child(2) {
-    animation: load 2.5s 1.2s infinite linear;
-  }
-  .loader span:nth-child(3) {
-    animation: load 2.5s 1s infinite linear;
-  }
-  .loader span:nth-child(4) {
-    animation: load 2.5s 0.8s infinite linear;
-  }
-  .loader span:nth-child(5) {
-    animation: load 2.5s 0.6s infinite linear;
-  }
-  .loader span:nth-child(6) {
-    animation: load 2.5s 0.4s infinite linear;
-  }
-  .loader span:nth-child(7) {
-    animation: load 2.5s 0.2s infinite linear;
-  }
-  .loader span:nth-child(8) {
-    animation: load 2.5s 0s infinite linear;
-  }
-  .loader span:nth-child(9) {
-    animation: load 2.5s 0.2s infinite linear;
-  }
-  .loader span:nth-child(10) {
-    animation: load 2.5s 0.4s infinite linear;
-  }
-  .loader span:nth-child(11) {
-    animation: load 2.5s 0.6s infinite linear;
-  }
-  .loader span:nth-child(12) {
-    animation: load 2.5s 0.8s infinite linear;
-  }
-  .loader span:nth-child(13) {
-    animation: load 2.5s 1s infinite linear;
-  }
-  .loader span:nth-child(14) {
-    animation: load 2.5s 1.2s infinite linear;
-  }
-  .loader span:nth-child(15) {
-    animation: load 2.5s 1.4s infinite linear;
-  }
-  
-  @keyframes load {
-    0% {
-      background: #ccc;
-      margin-top: 25%;
-      height: 10%;
-    }
-    50% {
-      background: #444;
-      height: 100%;
-      margin-top: 0%;
-    }
-    100% {
-      background: #ccc;
-      height: 10%;
-      margin-top: 25%;
-    }
-  }
-  
+}
