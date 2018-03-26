@@ -3,6 +3,7 @@ import "./css/fullcalendar.css"
 import FullCalendar from "fullcalendar-reactwrapper"
 import { readById } from "./services/event.service"
 import BirthdayForm from "./birthdayForm"
+import Nav from "./nav"
 
 class Calendar extends Component {
   state = {
@@ -56,6 +57,7 @@ class Calendar extends Component {
 
     return (
       <div>
+        <Nav logged={true} />
         <div className="row">
           <FullCalendar
             header={{

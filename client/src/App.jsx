@@ -1,34 +1,22 @@
 import React, { Component } from "react"
 import "./css/style.css"
 import "react-notifications/lib/notifications.css"
-import profile from "./images/default_profile.jpg"
 import Register from "./register"
 import Login from "./login"
+//import profile from "./images/default_profile.jpg"
 import Home from "./home"
 import Calendar from "./calendar"
 import Confirm from "./confirm.email"
 import Settings from "./settings"
 import dotenv from "dotenv"
-import { Link, Switch, Route, Redirect } from "react-router-dom"
+import { Switch, Route, Redirect } from "react-router-dom"
 import Confetti from "./confetti"
-
-import { logout } from "./services/register.service"
 
 dotenv.config()
 
 class App extends Component {
   state = {
     redirect: false
-  }
-
-  logout = e => {
-    e.preventDefault()
-    logout()
-      .then(data => {
-        alert("redirect")
-        this.setState({ redirect: true })
-      })
-      .catch(err => console.log(err))
   }
 
   render() {
@@ -40,7 +28,7 @@ class App extends Component {
     return (
       <div>
         <div>
-          <header>
+          {/* <header>
             <ul id="dropdown1" className="dropdown-content">
               <li>
                 <Link to={`/settings`}>Settings</Link>
@@ -66,7 +54,7 @@ class App extends Component {
                 </a>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                   <Link to={`/register`}>Register</Link>
-                  <Link to={`/login`}>Login</Link>
+             
                   <li className="pic">
                     <a
                       className="dropdown-button"
@@ -81,7 +69,8 @@ class App extends Component {
                 </ul>
               </div>
             </nav>
-          </header>
+          </header> */}
+
           <Confetti />
           <Switch>
             <Route path="/settings" component={Settings} />
@@ -96,7 +85,6 @@ class App extends Component {
         <footer className="page-footer">
           <div className="footer-copyright">
             <p className="center-block">
-              {" "}
               © 2018 Vonetta Stevenson All Rights Reserved
             </p>
           </div>
