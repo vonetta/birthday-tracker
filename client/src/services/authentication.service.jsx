@@ -1,5 +1,9 @@
-import cookie from 'react-cookies'
+import cookie from "react-cookies"
 
 export function getCurrentUser() {
-    return JSON.parse(cookie.load('auth').slice(2))
+  if (!cookie.load) {
+    return
+  } else {
+    return JSON.parse(cookie.load("auth").slice(2))
+  }
 }

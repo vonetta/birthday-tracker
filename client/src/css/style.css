@@ -71,17 +71,17 @@ img {
   width: 80%;
   margin-left: 11%;
 }
-ul {
+/* ul {
   display: flex;
-}
+} */
 
-ul li a {
+/* ul li a {
   flex-direction: column;
-}
+} */
 
-ul link {
+/* ul link {
   justify-content: flex-end;
-}
+} */
 
 .pic img {
   margin-top: 3%;

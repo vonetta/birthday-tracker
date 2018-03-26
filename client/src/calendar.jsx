@@ -3,7 +3,9 @@ import "./css/fullcalendar.css"
 import FullCalendar from "fullcalendar-reactwrapper"
 import { readById } from "./services/event.service"
 import BirthdayForm from "./birthdayForm"
+import BirthdayList from "./birthdayList"
 import Nav from "./nav"
+// import { getCurrentUser } from "./services/authentication.service"
 
 class Calendar extends Component {
   state = {
@@ -12,7 +14,8 @@ class Calendar extends Component {
     modal: false,
     eventId: "",
     userId: "",
-    events: []
+    events: [],
+    list: false
   }
 
   componentWillMount() {
@@ -42,8 +45,14 @@ class Calendar extends Component {
     })
   }
 
+  viewList = () => {
+    this.setState({
+      list: true
+    })
+  }
+
   render() {
-    let form
+    let form, list
     if (this.state.modal === true) {
       form = (
         <BirthdayForm
@@ -55,20 +64,37 @@ class Calendar extends Component {
       )
     }
 
+    if (this.state.list === true) {
+      list = (
+        <BirthdayList
+          list={this.state.list}
+          userId={this.state.userId}
+          events={this.state.events}
+        />
+      )
+    }
+
+    let customButtons = {
+      createButton: {
+        text: "View All",
+        click: this.viewList
+      }
+    }
+
     return (
       <div>
         <Nav logged={true} />
         <div className="row">
           <FullCalendar
+            customButtons={customButtons}
             header={{
               center: "title",
-              left: "prev, next, today",
+              left: "prev, next, today  createButton",
               right: "month,agendaWeek,agendaDay"
             }}
             editable={true}
             dayClick={this.dayClick}
             defaultDate={new Date()}
-            eventClick={this.eventClick}
             events={this.state.events.map(obj => ({
               title: "🎂" + obj.name,
               start: obj.date,
@@ -76,6 +102,7 @@ class Calendar extends Component {
             }))}
           />
           {form}
+          {list}
         </div>
       </div>
     )

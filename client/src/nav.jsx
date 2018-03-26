@@ -1,8 +1,16 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import { logout } from "./services/register.service"
+// import { getCurrentUser } from "./services/authentication.service"
 
 class Navigation extends Component {
+  state = {
+    redirect: false
+  }
+
+  // componentDidMount() {
+  //   this.setState({ fullName: getCurrentUser() })
+  // }
   logout = e => {
     e.preventDefault()
     logout()
@@ -13,8 +21,10 @@ class Navigation extends Component {
   }
 
   render() {
-    //Get the logged value from wherever you are getting it in the application.
-    // Eg: let logged = true
+    if (this.state.redirect === true) {
+      this.setState({ redirect: false })
+      return <Redirect to={"/login"} />
+    }
     return (
       <div>
         <header>
@@ -25,9 +35,13 @@ class Navigation extends Component {
               </a>
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 {this.props.logged ? (
-                  <li>
-                    <Link to={`/login`}>Log Out</Link>
-                  </li>
+                  <div>
+                    <li>
+                      <a href="" onClick={this.logout}>
+                        Log Out
+                      </a>
+                    </li>
+                  </div>
                 ) : (
                   <div>
                     <li id="register">

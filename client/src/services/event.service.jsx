@@ -1,23 +1,30 @@
-import axios from 'axios'
+import axios from "axios"
 
-
-export function readById(id){
-    return axios.get(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/events/${id}`)
+export function readById(id) {
+  return axios
+    .get(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/events/${id}`)
     .then(onSuccess)
     .catch(onError)
 }
 
-
 export function create(data) {
-    return axios.post(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/events/`, data)
-        .then(onSuccess)
-        .catch(onError)
+  return axios
+    .post(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/events/`, data)
+    .then(onSuccess)
+    .catch(onError)
+}
+
+export function deleteDay(id) {
+  return axios
+    .delete(`${process.env.REACT_APP_BACKEND_ORIGIN}/api/events/${id}`)
+    .then(onSuccess)
+    .catch(onError)
 }
 
 function onSuccess(response) {
-    return response
+  return response
 }
 
 function onError(err) {
-    return Promise.reject(err.data)
+  return Promise.reject(err.data)
 }
