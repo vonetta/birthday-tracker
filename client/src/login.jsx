@@ -64,12 +64,12 @@ class Login extends Component {
         <div className="container">
           <div className="row">
             <form
-              className="loginForm m4"
+              className="loginForm col s12 m6 offset-m3"
               ref={ref => (this.loginFormElement = ref)}
             >
               <h4 className="center">Login</h4>
               <div className={"row " + this.validityCheck("emailElement")}>
-                <div className="input-field col m12">
+                <div className="input-field col s12">
                   <input
                     type="email"
                     id="email"
@@ -90,7 +90,7 @@ class Login extends Component {
                 </div>
               </div>
               <div className={"row " + this.validityCheck("passwordElement")}>
-                <div className="input-field col m12">
+                <div className="input-field col s12">
                   <label htmlFor="password">Password</label>
                   <input
                     type="password"

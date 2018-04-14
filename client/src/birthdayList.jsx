@@ -1,38 +1,65 @@
 /*global $*/
 import React, { Component } from "react"
 import { Modal } from "react-materialize"
-//import { deleteDay } from "./services/event.service"
+import { deleteDay, readById } from "./services/event.service"
 
 class BirthdayList extends Component {
+  state = { items: [] }
+
   componentDidUpdate(nextProps) {
     if (nextProps.list === true) {
       $("#list").modal("open")
     }
   }
 
+  componentDidMount() {
+    readById(this.props.userId)
+      .then(data => this.setState({ items: data.data }))
+      .catch(err => console.log(err))
+  }
+
   delete = id => {
-    alert("maybe")
-    console.log(id)
+    deleteDay(id)
+      .then(data => {
+        this.props.callBack(this.state.form)
+        this.setState({
+          items: []
+        })
+        if (this.props.modal === true) {
+          $("#test").modal("close")
+        }
+        if (this.props.list === true) {
+          $("#list").modal("close")
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   render() {
     return (
       <div className="row">
-        <Modal id="list">
+        <Modal
+          id="list"
+          actions={
+            <button
+              className="btn waves-effect waves-light "
+              onClick={() => this.props.close()}
+            >
+              Close
+            </button>
+          }
+        >
           <ul className="collection">
-            {this.props.events.map(event => {
+            {this.state.items.map(event => {
               return (
-                <li
-                  key={event._id}
-                  className="collection-item"
-                  onClick={this.delete(event._id)}
-                >
+                <li key={event._id} className="collection-item">
                   {event.date} | {event.name} | {event._id}
                   <button
+                    id={event._id}
                     className="btn waves-effect waves-light  red accent-4 right"
                     type="submit"
                     name="action"
-                    onClick={this.delete.bind(this, event)}
+                    onClick={() => this.delete(event._id)}
                   >
                     <i className="material-icons">close</i>
                   </button>

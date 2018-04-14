@@ -28,49 +28,6 @@ class App extends Component {
     return (
       <div>
         <div>
-          {/* <header>
-            <ul id="dropdown1" className="dropdown-content">
-              <li>
-                <Link to={`/settings`}>Settings</Link>
-              </li>
-              <li className="divider" />
-              <li>
-                <a href="" onClick={this.logout}>
-                  Log Out
-                </a>
-              </li>
-            </ul>
-            <nav>
-              <div className="nav-wrapper">
-                <a href="/" className="brand-logo">
-                  Birthday Tracker
-                </a>
-                <a
-                  href=""
-                  data-target="mobile-demo"
-                  className="sidenav-trigger right"
-                >
-                  <i className="material-icons">menu</i>
-                </a>
-                <ul id="nav-mobile" className="right hide-on-med-and-down">
-                  <Link to={`/register`}>Register</Link>
-             
-                  <li className="pic">
-                    <a
-                      className="dropdown-button"
-                      href="#!"
-                      data-activates="dropdown1"
-                    >
-                      <img src={profile} alt="" />{" "}
-                      <i className="material-icons right">arrow_drop_down</i>
-                      <span className="username" />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </header> */}
-
           <Confetti />
           <Switch>
             <Route path="/settings" component={Settings} />

@@ -1,3 +1,4 @@
+/*global $*/
 import React, { Component } from "react"
 import "./css/fullcalendar.css"
 import FullCalendar from "fullcalendar-reactwrapper"
@@ -19,13 +20,14 @@ class Calendar extends Component {
   }
 
   componentWillMount() {
-    this.setState({ userId: this.props.match.params.userId })
+    this.setState({ userId: this.props.match.params.userId.trim() })
   }
 
   componentDidMount() {
     readById(this.state.userId)
       .then(data => this.setState({ events: data.data }))
       .catch(err => console.log(err))
+    console.log(this.state.userId)
   }
 
   dayClick = (date, jsEvent, view) => {
@@ -51,6 +53,13 @@ class Calendar extends Component {
     })
   }
 
+  closeList = () => {
+    this.setState({
+      list: false
+    })
+    $("#list").modal("close")
+  }
+
   render() {
     let form, list
     if (this.state.modal === true) {
@@ -70,6 +79,7 @@ class Calendar extends Component {
           list={this.state.list}
           userId={this.state.userId}
           events={this.state.events}
+          close={this.closeList}
         />
       )
     }

@@ -121,6 +121,7 @@ class BirthdayForm extends Component {
             </form>
           </Modal>
         </div>
+        <pre>{JSON.stringify(this.state, null, 4)}</pre>
       </div>
     )
   }
