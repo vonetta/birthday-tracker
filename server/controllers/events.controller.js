@@ -15,9 +15,10 @@ module.exports = apiPrefix => {
 }
 
 function read(req, res) {
-  eventsService.read().then(events => {
-    res.json(events)
-  })
+  eventsService
+    .read()
+    .then(events => res.status(200).json(events))
+    .catch(err => res.status(500).send(err))
 }
 
 function readById(req, res) {

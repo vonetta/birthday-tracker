@@ -1,40 +1,45 @@
-'use strict'
+"use strict"
 
-const express = require('express')
+const express = require("express")
 const app = express()
-const dotenv = require('dotenv')
-const bodyParser = require('body-parser')
-const mongo = require('./mongodb')
-const mainRouter = require('./routes') //index.js by default
-const configMongoDB = require('./config/mongodb.config')
-const cookieParser = require('cookie-parser')
-const passport = require('passport')
-const auth = require('./filters/auth')
-const cookieSession = require('cookie-session')
-const schedule = require('node-schedule')
-const eventService = require('./services/events.service')
-const emailService = require('./services/emails.service')
+const dotenv = require("dotenv")
+const bodyParser = require("body-parser")
+const mongo = require("./mongodb")
+const mainRouter = require("./routes") //index.js by default
+const configMongoDB = require("./config/mongodb.config")
+const cookieParser = require("cookie-parser")
+const passport = require("passport")
+const auth = require("./filters/auth")
+const cookieSession = require("cookie-session")
+const schedule = require("node-schedule")
+const eventService = require("./services/events.service")
+const emailService = require("./services/emails.service")
 
 auth(passport)
 
-app.use(passport.initialize());
+app.use(passport.initialize())
 
 //cookie-session
-app.use(cookieSession({
-    name: 'session',
-    keys: ['123']
-}))
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["123"]
+  })
+)
 
 // enable cookie-parser
 app.use(cookieParser())
 
 //cors
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", `${process.env.ORIGIN}`)
-    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-    res.header("Access-Control-Allow-Credentials", "true")
-    next()
+  res.header("Access-Control-Allow-Origin", `${process.env.ORIGIN}`)
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  )
+  res.header("Access-Control-Allow-Credentials", "true")
+  next()
 })
 
 // get all data/stuff of the body (POST) parameters
@@ -42,58 +47,69 @@ app.use((req, res, next) => {
 app.use(bodyParser.json())
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({
+app.use(
+  bodyParser.urlencoded({
     extended: true
-}))
+  })
+)
 
-app.get('/', (req, res) => {
-    if (req.session.token) {
-        res.cookie('token', req.session.token)
-        res.json({
-            status: 'session cookie set'
-        })
-    }
-    else {
-        res.cookie('token', '')
-        res.json({
-            status: 'session cookie not set'
-        })
-    }
-})
-
-app.get('/auth/google', passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/userinfo.profile']
-}))
-
-app.get('/auth/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: '/'
-    }),
-    (req, res) => {
-        console.log(req.user.profile.name.givenName)
-        req.session.token = req.user.token
-        res.redirect(`http://localhost:3001/login`)
+app.get("/", (req, res) => {
+  if (req.session.token) {
+    res.cookie("token", req.session.token)
+    res.json({
+      status: "session cookie set"
     })
-
-app.get('/logout', (req, res) => {
-    rew.logout()
-    req.session = null
-    res.redirect('/')
+  } else {
+    res.cookie("token", "")
+    res.json({
+      status: "session cookie not set"
+    })
+  }
 })
 
-// var rule = new schedule.RecurrenceRule();
-// rule.seconds = 1;
+app.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["https://www.googleapis.com/auth/userinfo.profile"]
+  })
+)
 
-// var j = schedule.scheduleJob(rule, function () {
-//     console.log('The answer to life, the universe, and everything!');
-//     eventService.read()
-//         .then(data => {
-//             if (!data) { return }
-//             for (let i = 0; i < data.length; i++) {
-//                 emailService.sendBirthdayEmail(data[i].email, data[i].userId, data[i].name)
-//             }
-//         })
-// });
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/"
+  }),
+  (req, res) => {
+    console.log(req.user.profile.name.givenName)
+    req.session.token = req.user.token
+    res.redirect(`http://localhost:3001/login`)
+  }
+)
+
+app.get("/logout", (req, res) => {
+  rew.logout()
+  req.session = null
+  res.redirect("/")
+})
+
+var rule = new schedule.RecurrenceRule()
+rule.seconds = 1
+
+var j = schedule.scheduleJob(rule, function() {
+  console.log("The answer to life, the universe, and everything!")
+  eventService.read().then(data => {
+    if (!data) {
+      return
+    }
+    for (let i = 0; i < data.length; i++) {
+      emailService.sendBirthdayEmail(
+        data[i].email,
+        data[i].userId,
+        data[i].name
+      )
+    }
+  })
+})
 
 // initialize dotenv
 dotenv.config()
@@ -105,11 +121,12 @@ const port = process.env.PORT || 8080
 app.use(mainRouter)
 
 // start mongo connection pool, then start express app
-mongo.connect(process.env.MONGODB_URL)
-    .then(() => configMongoDB(app))
-    .then(() => app.listen(port))
-    .then(() => console.log(`Magic happens on port: ${port}`))
-    .catch((err) => {
-        console.error(err)
-        process.exit(1)
-    })
+mongo
+  .connect(process.env.MONGODB_URL)
+  .then(() => configMongoDB(app))
+  .then(() => app.listen(port))
+  .then(() => console.log(`Magic happens on port: ${port}`))
+  .catch(err => {
+    console.error(err)
+    process.exit(1)
+  })

@@ -22,7 +22,6 @@ function read() {
     .then(events => {
       for (let i = 0; i < events.length; i++) {
         let event = events[i]
-
         event._id = event._id.toString()
         event.userId = event.userId.toString()
       }
@@ -37,7 +36,7 @@ function readById(id) {
   return conn
     .db()
     .collection("events")
-    .find({ userId: new ObjectId(id) })
+    .find({ userId: new ObjectId(id), dateDeactivated: null })
     .toArray()
     .then(events => {
       for (let i = 0; i < events.length; i++) {
@@ -63,7 +62,7 @@ function create(model) {
     .insertOne(doc)
     .then(result => result.insertedId.toString())
     .catch(err => {
-      Promise.reject(err)
+      return Promise.reject(err)
     })
 }
 
